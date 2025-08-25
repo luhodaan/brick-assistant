@@ -1,0 +1,40 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Medolago_Building a brick:Building ;
+    brick:hasLocation [ brick:value "Medolago" ] ;
+    brick:hasCoordinates [ brick:latitude "45.66786" ; brick:longitude "9.50037" ] ;
+    brick:hasArea [ brick:value "400 square meter" ] .
+    
+
+bldg:BCGP_Shop a brick:Zone ;
+    brick:isPartOf bldg:Medolago_Building .
+
+bldg:Electric_Power_Meter_0ff25974 a brick:Meter ;
+    brick:hasUUID "0ff25974-fbef-44e4-b0bf-ca22424681cc" ;
+    brick:feeds bldg:Medolago_Building .
+
+bldg:HVAC_Electricity_Meter_3d757ae4 a brick:Meter ;
+    brick:hasUUID "3d757ae4-053f-4841-86f6-216c0d092825" ;
+    brick:feeds bldg:BCGP_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_10ced5b1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "10ced5b1-39cb-4b96-8498-f6ed7ff10868" ;
+    brick:isPointOf bldg:BCGP_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_5472d440 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "5472d440-2ad2-4ff6-aaa5-5a371bdcf093" ;
+    brick:isPointOf bldg:BCGP_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_a5dfd332 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "a5dfd332-30d3-45fe-ab92-e48cb9425199" ;
+    brick:isPointOf bldg:BCGP_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1f5a9016 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "1f5a9016-732b-4ff5-9280-435d4154d58a" ;
+    brick:isPointOf bldg:BCGP_Shop .
+
+bldg:Outside_Air_Temperature_Sensor_751c78d9 a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "751c78d9-2867-4202-9b73-fed6f8b94c13" ;
+    brick:isPointOf bldg:Medolago_Building .

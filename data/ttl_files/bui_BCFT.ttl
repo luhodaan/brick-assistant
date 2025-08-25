@@ -1,0 +1,51 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building_1 a brick:Building ;
+    brick:hasLocation [ brick:value "Cremona" ] ;
+    brick:hasCoordinates [ brick:longitude "10.00359" ; brick:latitude "45.15489" ] ;
+    brick:hasArea [ brick:value "367 square meter" ] .
+
+bldg:BCFT a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCFT .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCFT .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCFT .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:BCFT .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "082262f7-140f-486c-b639-2bcfbc7eeab3" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "7473f2b2-a299-4e28-9146-c4ff15269bd1" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "465b01cc-8436-4553-be8b-38fdc9e62491" .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_4 ;
+    brick:hasUUID "b14b78f2-4840-453d-b098-75b419e30e9b" .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building_1 ;
+    brick:hasUUID "9bbc3f66-08d7-4c2a-a58f-b4e6632c9978" .
+
+bldg:Meter_1 a brick:Meter ;
+    brick:hasUUID "a1dd4c6c-0a6e-4064-9fc0-029941a33782" ;
+    brick:feeds bldg:Building_1 .
+
+bldg:Meter_2 a brick:Meter ;
+    brick:hasUUID "753ddfc3-a24e-46ac-b642-c17937a79258" ;
+    brick:feeds bldg:BCFT .

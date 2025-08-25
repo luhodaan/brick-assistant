@@ -1,0 +1,45 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building_Roma_Corso_Francia a brick:Building ;
+    brick:hasLocation [ brick:value "Roma Corso Francia" ] ;
+    brick:hasCoordinates [ brick:latitude "41.94424" ; brick:longitude "12.46904" ] ;
+    brick:hasArea [ brick:value "171 square meter" ] .
+    
+
+bldg:BCGG_Shop a brick:Zone ;
+    brick:isPartOf bldg:Building_Roma_Corso_Francia .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCGG_Shop .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCGG_Shop .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCGG_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "c7f7bb40-67c7-4b37-afc3-480dfc456620" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "7690c025-02f6-40bb-8e10-95256aa17529" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "d22c2f74-af5d-4127-9c32-e7d7b3f98b84" .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building_Roma_Corso_Francia ;
+    brick:hasUUID "dd0dc527-28f9-486a-b5c4-b009b6f2a64f" .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "3727d24c-1ed2-45ba-9dba-28a6e8757545" ;
+    brick:feeds bldg:Building_Roma_Corso_Francia .
+
+bldg:Shop_HVAC_Meter a brick:Meter ;
+    brick:hasUUID "ec3effbe-e6d5-49fa-a147-a816c602401d" ;
+    brick:feeds bldg:BCGG_Shop .

@@ -1,0 +1,74 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Bussolengo_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Bussolengo" ] ;
+    brick:hasCoordinates [ brick:latitude "45.44087" ; brick:longitude "10.86677" ] ;
+    brick:hasArea [ brick:value "1527 square meter" ] .
+    
+
+bldg:BCGW_Shop a brick:Zone ;
+    brick:isPartOf bldg:Bussolengo_Building .
+
+bldg:Main_Electric_Meter a brick:Meter ;
+    brick:hasUUID "e132d84c-8bdb-486d-a380-0f7408e2cbe2" ;
+    brick:feeds bldg:Bussolengo_Building .
+
+bldg:HVAC_Electric_Meter a brick:Meter ;
+    brick:hasUUID "af187f69-ab0f-46ec-a1d6-e2a62c63a374" ;
+    brick:feeds bldg:BCGW_Shop .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_8 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_9 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_10 a brick:Zone ;
+    brick:isPartOf bldg:BCGW_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "b935a465-50a1-44d4-8fde-fec317029368" ;
+    brick:isPointOf bldg:Zone_1 .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "e0a20092-6597-49e1-af0c-c2b43f051f80" ;
+    brick:isPointOf bldg:Zone_2 .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "0be6c23d-54d8-4d61-8b49-087e0656db5f" ;
+    brick:isPointOf bldg:Zone_3 .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "584912cb-73d0-4d13-a13b-edbb9fd380f5" ;
+    brick:isPointOf bldg:Zone_4 .
+
+bldg:Zone_Air_Temperature_Sensor_5 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "a3e205fe-ab5e-41a5-84b9-9b2b2c7683ae" ;
+    brick:isPointOf bldg:Zone_8 .
+
+bldg:Zone_Air_Temperature_Sensor_6 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "71e67d53-48c3-44a7-87b1-a78baecd6525" ;
+    brick:isPointOf bldg:Zone_9 .
+
+bldg:Zone_Air_Temperature_Sensor_7 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "2f2a911b-4060-47b1-b442-9e9060fa5c77" ;
+    brick:isPointOf bldg:Zone_10 .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "e6c5595d-6ea8-45e3-ae75-312a9f1197c5" ;
+    brick:isPointOf bldg:Bussolengo_Building .

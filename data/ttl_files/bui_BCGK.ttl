@@ -1,0 +1,23 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Osimo_Building a brick:Building ;
+    brick:hasLocation [ brick:value "Osimo" ] ;
+    brick:hasCoordinates [ brick:latitude "43.53126" ; brick:longitude "13.51771" ] ;
+    brick:hasArea [ brick:value "397" ; brick:hasUnit "square_meter" ] .
+
+bldg:BCGK_Shop a brick:Location ;
+    brick:isPartOf bldg:Osimo_Building .
+
+bldg:Electric_Meter_1 a brick:Meter ;
+    brick:hasUUID "2702761e-a487-4d8b-85bd-5fbb1431e2aa" ;
+    brick:feeds bldg:Osimo_Building .
+
+bldg:Electric_Meter_2 a brick:Meter ;
+    brick:hasUUID "8f42c8cf-3855-42b2-bd9f-be1765c8327a" ;
+    brick:feeds bldg:BCGK_Shop .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "f6c572e1-7c4e-4920-b85f-6c6d122fd1a3" ;
+    brick:isPointOf bldg:BCGK_Shop .

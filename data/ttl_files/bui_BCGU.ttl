@@ -1,0 +1,28 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Monopoli_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Monopoli" ] ;
+    brick:hasCoordinate [ brick:latitude "40.95071" ; brick:longitude "17.2906" ] ;
+    brick:hasArea [ brick:value "285" ; brick:unit "square_meter" ] .
+
+bldg:BCGU_Shop a brick:Zone ;
+    brick:isPartOf bldg:Monopoli_Building .
+
+bldg:Main_Electric_Meter a brick:Meter ;
+    brick:hasUUID "18166543-a2f7-46b1-bab2-f5eeb610d731" ;
+    brick:feeds bldg:Monopoli_Building .
+
+bldg:HVAC_Electric_Meter a brick:Meter ;
+    brick:hasUUID "ab81da91-504b-4ff0-908c-fa188b09cdd3" ;
+    brick:feeds bldg:BCGU_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "ec5602f4-9624-47ec-a48d-a834f6e8b2ff" ;
+    brick:isPointOf bldg:BCGU_Shop .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "54c9abef-1e55-4c3e-bdda-d5840711aa33" ;
+    brick:isPointOf bldg:Monopoli_Building .

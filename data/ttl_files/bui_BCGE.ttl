@@ -1,0 +1,40 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Alessandria_Building a brick:Building ;
+    brick:hasLocation [ brick:value "Alessandria" ] ;
+    brick:hasCoordinates [ brick:latitude "44.90019" ; brick:longitude "8.65496" ] ;
+    brick:hasArea [ brick:value "589 square meter" ] .
+    
+
+bldg:BCGE_Shop a brick:Zone ;
+    brick:isPartOf bldg:Alessandria_Building .
+
+bldg:Building_Meter a brick:Electric_Power_Sensor ;
+    brick:hasUUID "da22fbe3-3f9c-4ff8-aabc-e4589ed64967" ;
+    brick:isPointOf bldg:Alessandria_Building .
+
+bldg:Shop_HVAC_Meter a brick:Electric_Energy_Sensor ;
+    brick:hasUUID "f0454c38-6b3c-486e-8162-911d9d178786" ;
+    brick:isPointOf bldg:BCGE_Shop .
+
+bldg:Zone_1_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "b52a1740-5cb9-46ec-900b-669c3fbbd4fb" ;
+    brick:isPointOf bldg:BCGE_Shop .
+
+bldg:Zone_2_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "881dd709-ba53-4c7f-ac3f-8117353b0053" ;
+    brick:isPointOf bldg:BCGE_Shop .
+
+bldg:Zone_3_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "70b344f7-2a3f-4b4b-b53f-f683790e1e1a" ;
+    brick:isPointOf bldg:BCGE_Shop .
+
+bldg:Zone_4_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "4a216cc4-f5f7-494a-a44f-4bbdb6c7a108" ;
+    brick:isPointOf bldg:BCGE_Shop .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "6f1aada9-e29d-4b83-90eb-1ea9d8b8a2b8" ;
+    brick:isPointOf bldg:Alessandria_Building .

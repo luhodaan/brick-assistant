@@ -1,0 +1,52 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building_1 a brick:Building ;
+    brick:hasLocation [ brick:value "Castiglione delle Stiviere" ] ;
+    brick:hasCoordinates [ brick:latitude "45.39192" ; brick:longitude "10.4787" ] ;
+    brick:hasArea [ brick:value "287 square meter" ] .
+    
+
+bldg:BCGM a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCGM .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCGM .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCGM .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:BCGM .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "63f13121-03d5-4508-94b4-bf6a9018e9a0" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "50b8843e-ba71-4ef1-9cbf-2c821c00606d" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "a9c11124-6da9-42c7-9ef3-65b79b9baf01" .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_4 ;
+    brick:hasUUID "40ef8dd5-c3d3-42b4-a95b-c3e5f7f28391" .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building_1 ;
+    brick:hasUUID "01072d7d-01f2-4891-813b-4b2bbbb08ae1" .
+
+bldg:Meter_1 a brick:Meter ;
+    brick:hasUUID "555a1317-8c7d-4852-ba08-1d727554c0e5" ;
+    brick:feeds bldg:Building_1 .
+
+bldg:Meter_2 a brick:Meter ;
+    brick:hasUUID "6e31e94c-0232-424f-a0b0-43f0ce4cf1ad" ;
+    brick:feeds bldg:BCGM .

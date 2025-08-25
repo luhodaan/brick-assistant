@@ -1,0 +1,41 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Roma_Prenestina_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Roma Prenestina" ] ;
+    brick:hasCoordinates [ brick:latitude "41.8945" ; brick:longitude "12.59187" ] ;
+    brick:hasArea [ brick:value "515 square meter" ] .
+    
+
+bldg:BCGF_Shop a brick:Zone ;a62e9bb9-440e-41a9-ab70-06d9d6ba7609
+    brick:isPartOf bldg:Roma_Prenestina_Building .
+
+bldg:Building_Electric_Meter a brick:Meter ;
+    brick:hasUUID "72c556a7-af6a-427f-828d-e4914c2d8020" ;
+    brick:isPartOf bldg:Roma_Prenestina_Building .
+
+bldg:Shop_HVAC_Meter a brick:Meter ;
+    brick:hasUUID "57b9379f-3668-428d-aa66-a66183038366" ;
+    brick:isPartOf bldg:BCGF_Shop .
+
+bldg:Zone_1_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "a62e9bb9-440e-41a9-ab70-06d9d6ba7609" ;
+    brick:isPointOf bldg:BCGF_Shop .
+
+bldg:Zone_2_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "02b0e2fe-a95f-4b83-9ad0-5bed57e0f873" ;
+    brick:isPointOf bldg:BCGF_Shop .
+
+bldg:Zone_3_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "5d147b2e-98af-4491-be52-135fadb920ff" ;
+    brick:isPointOf bldg:BCGF_Shop .
+
+bldg:Zone_4_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "6f758e1e-c2c6-4d92-8947-d669e8a8cce2" ;
+    brick:isPointOf bldg:BCGF_Shop .
+
+bldg:External_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "85f8a5d6-00de-476c-bab0-6cab3e1b1c6e" ;
+    brick:isPointOf bldg:Roma_Prenestina_Building .

@@ -1,0 +1,51 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building a brick:Building ;
+    brick:hasLocation [ brick:value "Darfo Boario Terme" ] ;
+    brick:hasCoordinates [ brick:longitude "10.17052" ; brick:latitude "45.87047" ] ;
+    brick:hasArea [ brick:value "439 square meter" ] .
+    
+bldg:BCG7 a brick:Zone ;
+    brick:isPartOf bldg:Building .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCG7 .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCG7 .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCG7 .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:BCG7 .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "83e3cf9b-1ca7-4012-bc6e-23d69d7a9091" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "00a5ecf3-6998-4a1b-8468-8372ef5058fd" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "3de8180c-b097-4dd4-8121-c7f05bc52381" .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_4 ;
+    brick:hasUUID "997957af-b760-4e70-af57-f2f0b2ccd3b2" .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building ;
+    brick:hasUUID "ce0c61b5-7be0-4da1-ab5c-b6fc6ef7e548" .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "a117160d-3417-4c4a-86e1-092b4f12877c" ;
+    brick:feeds bldg:Building .
+
+bldg:HVAC_Meter a brick:Meter ;
+    brick:hasUUID "b8b2e35d-b83e-4130-b4c7-20c1ea9815b3" ;
+    brick:feeds bldg:BCG7 .

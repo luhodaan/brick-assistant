@@ -1,0 +1,38 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Oderzo_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Oderzo" ] ;
+    brick:hasCoordinates [ brick:latitude "45.7942" ; brick:longitude "12.49567" ] ;
+    brick:hasArea [ brick:value "394" ; brick:unit "square meter" ] .
+
+bldg:BCFV_Shop a brick:Zone ;
+    brick:isPartOf bldg:Oderzo_Building .
+
+bldg:Main_Electric_Meter a brick:Meter ;
+    brick:hasUUID "c239c9e2-5cfb-4537-81ae-a49ff73f0646" ;
+    brick:feeds bldg:Oderzo_Building .
+
+bldg:HVAC_Meter a brick:Meter ;
+    brick:hasUUID "1fa0c03c-e03e-4bf5-b21e-87ed97162699" ;
+    brick:feeds bldg:BCFV_Shop .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCFV_Shop .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCFV_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "e84d60fc-4e8e-4f7e-9eab-77af067e08c5" ;
+    brick:isPointOf bldg:Zone_1 .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "c6433a00-0f98-47ab-ad20-8136e4edd0ca" ;
+    brick:isPointOf bldg:Zone_2 .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "dffbaf0f-6acc-4b7e-a74b-e554c8bdea19" ;
+    brick:isPointOf bldg:Oderzo_Building .

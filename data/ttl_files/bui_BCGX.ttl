@@ -1,0 +1,45 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building_Cesenatico a brick:Building ;
+    brick:hasLocation [ brick:value "Cesenatico" ] ;
+    brick:hasCoordinates [ brick:latitude "44.19405" ; brick:longitude "12.39856" ] ;
+    brick:hasArea [ brick:value "399 square meter" ] .
+    
+
+bldg:BCGX_Shop a brick:Zone ;
+    brick:isPartOf bldg:Building_Cesenatico .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCGX_Shop .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCGX_Shop .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCGX_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "3c148cee-89db-49e0-9371-503e148a0478" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "0a45db10-62ed-4884-b865-51c9c744787b" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "90180e55-2803-4da7-9ff1-279f0f472873" .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building_Cesenatico ;
+    brick:hasUUID "30bf8e3d-47dd-4e87-9be7-14903e8fb55d" .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "fe3ba55b-eb74-4478-b440-ae72d044edfd" ;
+    brick:feeds bldg:Building_Cesenatico .
+
+bldg:HVAC_Meter a brick:Meter ;
+    brick:hasUUID "81bded84-fa7b-4a0b-9ed9-b05d1d14cb3a" ;
+    brick:feeds bldg:BCGX_Shop .

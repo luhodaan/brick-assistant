@@ -1,0 +1,40 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Fidenza_Building a brick:Building ;
+    brick:hasLocation [ brick:value "Fidenza" ] ;
+    brick:hasCoordinates [ brick:latitude "44.855" ; brick:longitude "10.087" ] ;
+    brick:hasArea [ brick:value "379 square meter" ] .
+    
+
+bldg:BCH2_Shop a brick:Zone ;
+    brick:isPartOf bldg:Fidenza_Building .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "1b79f067-e991-4fca-8b86-b61d448beb05" ;
+    brick:isPartOf bldg:Fidenza_Building .
+
+bldg:Shop_HVAC_Meter a brick:Meter ;
+    brick:hasUUID "222b2aa5-baf8-4a2c-842f-2907ff9d6c34" ;
+    brick:isPartOf bldg:BCH2_Shop .
+
+bldg:Zone_1_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "e3a73727-1cf1-4f55-97c1-18c37e82f04e" ;
+    brick:isPointOf bldg:BCH2_Shop .
+
+bldg:Zone_2_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "d842eb07-37e2-4e40-b487-a95f7fc1a727" ;
+    brick:isPointOf bldg:BCH2_Shop .
+
+bldg:Zone_3_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "947bd76d-b62f-4f94-823c-37f7e80b06d2" ;
+    brick:isPointOf bldg:BCH2_Shop .
+
+bldg:Zone_4_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "de6543f4-402f-4ec7-8d69-fc06e1c60cd4" ;
+    brick:isPointOf bldg:BCH2_Shop .
+
+bldg:External_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "ce2bea9e-b2c9-4487-b24b-e94fb5d61b84" ;
+    brick:isPointOf bldg:Fidenza_Building .

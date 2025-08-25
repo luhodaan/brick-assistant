@@ -1,0 +1,53 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Grottaminarda_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Grottaminarda" ] ;
+    brick:hasCoordinates [ brick:latitude "41.06972" ; brick:longitude "15.05894" ] ;
+    brick:hasArea [ brick:value "340 square meter" ] .
+    
+
+bldg:BCGR_Shop a brick:Zone ;
+    brick:isPartOf bldg:Grottaminarda_Building .
+
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:BCGR_Shop .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:BCGR_Shop .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:BCGR_Shop .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:BCGR_Shop .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "e4ef54a4-10a1-44cb-a2f3-06e265345217" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "09beb27c-4db3-4cb1-881a-a4850188e403" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "3bdfb21b-3c2c-4596-8024-05d8c380b0eb" .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_4 ;
+    brick:hasUUID "b94abb60-009f-4aed-aaa8-750c61c3a85d" .
+
+bldg:Outside_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Grottaminarda_Building ;
+    brick:hasUUID "7f10497a-00e5-40ec-86db-0fda0700f318" .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "d45535bb-b86a-4d74-91a6-ed81b942d2a4" ;
+    brick:feeds bldg:Grottaminarda_Building .
+
+bldg:HVAC_Meter a brick:Meter ;
+    brick:hasUUID "0dbf38c4-8d16-4fe8-a776-7979d674b5d3" ;
+    brick:feeds bldg:BCGR_Shop .

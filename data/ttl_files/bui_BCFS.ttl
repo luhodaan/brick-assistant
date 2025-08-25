@@ -1,0 +1,48 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Building_1 a brick:Building ;
+    brick:hasLocation [ brick:value "Nola" ] ;
+    brick:hasCoordinates [ brick:latitude "41.25925" ; brick:longitude "14.46248" ] ;
+    brick:hasArea [ brick:value "541 square meter" ] .
+    
+bldg:Zone_1 a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_2 a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_3 a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_4 a brick:Zone ;
+    brick:isPartOf bldg:Building_1 .
+
+bldg:Zone_Air_Temperature_Sensor_1 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_1 ;
+    brick:hasUUID "06bcfb41-3d1c-4d98-a354-be5769da0365" .
+
+bldg:Zone_Air_Temperature_Sensor_2 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_2 ;
+    brick:hasUUID "d367591d-e12d-4593-821e-8652664fbd1d" .
+
+bldg:Zone_Air_Temperature_Sensor_3 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_3 ;
+    brick:hasUUID "42ecbcb7-a7d6-4b36-8443-5cae2019ca95" .
+
+bldg:Zone_Air_Temperature_Sensor_4 a brick:Zone_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Zone_4 ;
+    brick:hasUUID "0c20c529-9dbf-4a65-9d85-a6ff545b6bba" .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:Building_1 ;
+    brick:hasUUID "68e3f488-5bc6-4a2e-9882-d2c17af35331" .
+
+bldg:Electric_Power_Meter_1 a brick:Meter ;
+    brick:hasUUID "c7df2d95-4d51-4f5e-a028-e17d2136c9c5" ;
+    brick:feeds bldg:Building_1 .
+
+bldg:Electric_Power_Meter_2 a brick:Meter ;
+    brick:hasUUID "80924f92-d14c-4522-9b6a-ca56ffb184d9" ;
+    brick:feeds bldg:Zone_1, bldg:Zone_2, bldg:Zone_3, bldg:Zone_4 .

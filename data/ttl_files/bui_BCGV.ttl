@@ -1,0 +1,27 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Ascoli_Building a brick:Building ;
+    brick:hasLocation [ brick:value "Ascoli" ] ;
+    brick:hasCoordinates [ brick:latitude "42.84597" ; brick:longitude "13.61569" ] ;
+    brick:hasArea [ brick:value "398 square meter" ] .
+    
+
+bldg:BCGV_Shop a brick:Location ;
+    brick:isPartOf bldg:Ascoli_Building .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "1fabd618-4e3b-4b71-a29a-803faec47a45" ;
+    brick:feeds bldg:Ascoli_Building .
+
+bldg:Shop_HVAC_Meter a brick:Meter ;
+    brick:hasUUID "2d4147a0-8ef6-4261-9280-49b412958fda" ;
+    brick:feeds bldg:BCGV_Shop .
+
+bldg:Outside_Air_Temperature_Sensor_1 a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "61fd1ce8-a7ec-4a28-b5f4-3e2edce872ed" ;
+    brick:isPointOf bldg:Outdoor_Area_1 .
+
+bldg:Outdoor_Area_1 a brick:Outdoor_Area ;
+    brick:isPartOf bldg:Ascoli_Building .

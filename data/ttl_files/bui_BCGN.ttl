@@ -1,0 +1,25 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Milano_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Milano Via Padova" ] ;
+    brick:hasCoordinate [ brick:latitude "45.49606" ; brick:longitude "9.22689" ] ;
+    brick:hasArea [ brick:value "178 square meter" ] .
+    
+
+bldg:BCGN_Shop a brick:Location ;
+    brick:isPartOf bldg:Milano_Building .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "ca0adf2d-9dac-45c6-a449-ecbabf9ef289" ;
+    brick:feeds bldg:Milano_Building .
+
+bldg:Shop_Meter a brick:Meter ;
+    brick:hasUUID "f5b1b9c0-ca83-4272-9f42-97f134792e29" ;
+    brick:feeds bldg:BCGN_Shop .
+
+bldg:External_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "fc11e4a1-5498-4575-90ca-a0cb256a7a17" ;
+    brick:isPointOf bldg:Milano_Building .

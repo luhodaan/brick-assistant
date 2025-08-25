@@ -1,0 +1,41 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Castelfranco_Building a brick:Building ;
+    brick:buildingPrimaryFunction [ brick:value "Commercial" ] ;
+    brick:hasLocation [ brick:value "Castelfranco" ] ;
+    brick:hasCoordinates [ brick:latitude "45.68591" ; brick:longitude "11.95689" ] ;
+    brick:hasArea [ brick:value "376 square meter" ] .
+    
+
+bldg:BCGH_Shop a brick:Zone ;
+    brick:isPartOf bldg:Castelfranco_Building .
+
+bldg:Building_Meter a brick:Meter ;
+    brick:hasUUID "3c93235d-ecfb-4cd9-9f80-45d37996b05d" ;
+    brick:feeds bldg:Castelfranco_Building .
+
+bldg:Shop_HVAC_Meter a brick:Meter ;
+    brick:hasUUID "423b8364-34c6-4bee-8f24-3ec35a9e8ba7" ;
+    brick:feeds bldg:BCGH_Shop .
+
+bldg:Zone1_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "2fa78ed7-b7f8-4596-b8cf-50b2e3153099" ;
+    brick:isPointOf bldg:BCGH_Shop .
+
+bldg:Zone2_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "c86315f6-3aec-47a7-ad88-88e7083608c3" ;
+    brick:isPointOf bldg:BCGH_Shop .
+
+bldg:Zone3_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "6c493ab5-5eb7-4d68-a383-5e23c5e0dfdd" ;
+    brick:isPointOf bldg:BCGH_Shop .
+
+bldg:Zone4_Temperature_Sensor a brick:Zone_Air_Temperature_Sensor ;
+    brick:hasUUID "81ffd4de-af24-4ae4-a93b-41fef3c94f2b" ;
+    brick:isPointOf bldg:BCGH_Shop .
+
+bldg:External_Air_Temperature_Sensor a brick:Outside_Air_Temperature_Sensor ;
+    brick:hasUUID "768ee518-6087-4427-8f0f-ba56c2a31b3c" ;
+    brick:isPointOf bldg:Castelfranco_Building .

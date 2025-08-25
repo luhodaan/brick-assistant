@@ -1,0 +1,21 @@
+@prefix bldg: <urn:Building#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix prj: <http://example.com/Project#> .
+
+bldg:Milano_City_Life a brick:Building ;
+    brick:hasLocation [ brick:value "Milano City Life" ] ;
+    brick:hasCoordinates [ brick:latitude "45.48515" ; brick:longitude "9.15744" ] ;
+    brick:hasArea [ brick:value "209 square meter" ] .
+    
+
+bldg:BCGY a brick:Shop ;
+    brick:isPartOf bldg:Milano_City_Life .
+
+bldg:Electric_Power_Meter_2032c45e-58d7-44f6-9845-65807dcfba6e a brick:Meter ;
+    brick:isPartOf bldg:Milano_City_Life .
+
+bldg:HVAC_Electricity_Meter_6c1f7650-5726-4dae-9220-b7801c4b4554 a brick:Meter ;
+    brick:isPartOf bldg:BCGY .
+
+bldg:Outside_Air_Temperature_Sensor_d8354ade-4bb6-485e-aef2-629bb9c4c95e a brick:Outside_Air_Temperature_Sensor ;
+    brick:isPointOf bldg:BCGY .
