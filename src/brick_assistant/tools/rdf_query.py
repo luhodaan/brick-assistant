@@ -23,7 +23,7 @@ class RDFToolkitArgs(BaseModel):
         "meters",
         # add future ops here
     ]
-    # optional filters for future-proofing
+
     location_filter: Optional[str] = None
     limit: Optional[int] = Field(50, ge=1, le=1000)
 

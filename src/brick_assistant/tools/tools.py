@@ -3,7 +3,7 @@ import json
 import os
 from rdflib import Graph, BNode
 from langchain.tools import BaseTool  
-from wuerth_agent.config import settings
+from brick_assistant.config import settings
 
 class BrickExploration(BaseTool):
     name: str = "brick_explore_tool"

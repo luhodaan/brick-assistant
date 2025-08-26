@@ -1,5 +1,5 @@
 from typing import Union
-from wuerth_agent.config import settings
+from brick_assistant.config import settings
 
 from langchain.chat_models.base import BaseChatModel
 from langchain_openai import ChatOpenAI

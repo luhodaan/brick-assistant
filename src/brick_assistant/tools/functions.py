@@ -1,5 +1,5 @@
-from wuerth_agent.config import settings
-from wuerth_agent.tools import prompts
+from brick_assistant.config import settings
+from brick_assistant.tools import prompts
 from pydantic import BaseModel, Field
 from typing import Optional
 
@@ -162,8 +162,8 @@ import json
 import os
 from functools import lru_cache
 from langchain_core.messages import AIMessage
-from wuerth_agent.config import settings
-from wuerth_agent.config.configs import AgentConfig
+from brick_assistant.config import settings
+from brick_assistant.config.configs import AgentConfig
 from pathlib import Path
 
 @lru_cache(maxsize=1)

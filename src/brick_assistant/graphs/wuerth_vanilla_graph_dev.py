@@ -1,16 +1,14 @@
 from langgraph.graph import StateGraph, START, END
-from wuerth_agent.tools.functions import MessagesState
+from brick_assistant.tools.functions import MessagesState
 from typing import Any, Dict, List, Union, Literal
 from langchain.chat_models.base import BaseChatModel
-from wuerth_agent.config.configs import GraphConfig
+from brick_assistant.config.configs import GraphConfig
 from langgraph.checkpoint.memory import MemorySaver
-from wuerth_agent.graphs.abstract_rdf import AbstractWuerthGraphRDF
+from brick_assistant.graphs.abstract_graph import AbstractWuerthGraph
 
-from wuerth_agent.config.configs import AgentConfig, GraphConfig
-
-class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
-    def __init__(self, keys: AgentConfig, llm: Union[str, BaseChatModel] = "openai", checkpointer: MemorySaver = None):
-        super().__init__(keys, llm, checkpointer)
+class WuerthVanillaGraphDev(AbstractWuerthGraph):
+    def __init__(self, llm: Union[str, BaseChatModel] = "openai", checkpointer: MemorySaver = None):
+        super().__init__(llm, checkpointer)
         self.build_graph()
         self.compile_graph()
        
@@ -28,8 +26,7 @@ class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
         self.workflow.add_node("evaluate_user_query", node_funcs['evaluate_user_query'])
         self.workflow.add_node("metadata_keys_call", node_funcs['metadata_keys_call'])
         self.workflow.add_node("tables_or_rdf", node_funcs['tables_or_rdf'])
-        #self.workflow.add_node("create_rdf_query_tool", node_funcs['create_rdf_query_tool'])
-        self.workflow.add_node("rdf_toolkit", static_nodes['rdf_toolkit'])
+        self.workflow.add_node("brick_explore_tool", static_nodes['brick_explore_tool'])
         self.workflow.add_node("tables_or_end", node_funcs['tables_or_end'])
         self.workflow.add_node("list_tables_tool", db_nodes['sql_db_list_tables'])
         self.workflow.add_node("call_get_schema", node_funcs['call_get_schema'])
@@ -44,7 +41,7 @@ class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
         self.workflow.add_edge("metadata_keys_call", "evaluate_user_query")
         
         # After brick_explore_tool, always go to tables_or_end (fixed flow)
-        self.workflow.add_edge("rdf_toolkit", "tables_or_end")
+        self.workflow.add_edge("brick_explore_tool", "tables_or_end")
         
         # After list_tables_tool, always proceed through schema retrieval (fixed flow)
         self.workflow.add_edge("list_tables_tool", "call_get_schema")

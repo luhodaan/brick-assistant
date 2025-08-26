@@ -1,5 +1,5 @@
-from wuerth_agent.evals.dataset_ttl import Examples
-from wuerth_agent.evals.grader import final_answer_correct
+from brick_assistant.evals.dataset_ttl import Examples
+from brick_assistant.evals.grader import final_answer_correct
 from compiled_graphs import wuerth_vanilla_graph_dev as graph
 from langsmith import Client
 
@@ -8,9 +8,9 @@ ghraph = graph
 client = Client()
 
 
-dataset_name = "wuerth_vanilla_ttl_dataset"
-if not client.has_dataset(dataset_name=dataset_name):
-    dataset = client.create_dataset(dataset_name=dataset_name)
+Dataset_name = "wuerth_vanilla_ttl_dataset"
+if not client.has_dataset(dataset_name=Dataset_name):
+    dataset = client.create_dataset(dataset_name=Dataset_name)
     client.create_examples(
         dataset_id=dataset.id,
         examples=examples
@@ -34,9 +34,9 @@ def run_graph(inputs: dict) -> dict:
 
 experiment_results =  client.evaluate(
     run_graph,
-    data=dataset_name,
+    data=Dataset_name,
     evaluators=[final_answer_correct],
-    experiment_prefix="sql-agent-gpt4o-e2e",
+    experiment_prefix="rdf_improvement",
     num_repetitions=1,
     max_concurrency=1,
 )

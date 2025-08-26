@@ -8,23 +8,29 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from langgraph.prebuilt import ToolNode
+from pathlib import Path
 
-from wuerth_agent.helpers.llm_models import _get_llm
-from wuerth_agent.tools.tools import BrickExploration
-from wuerth_agent.config import settings
+from brick_assistant.helpers.llm_models import _get_llm
+from brick_assistant.config import settings
 
-class AbstractWuerthGraph(ABC):
-    def __init__(self, llm: Union[str, BaseChatModel] = "openai", checkpointer: Optional[BaseCheckpointSaver]= None):
-        self.model = _get_llm(llm)
+from brick_assistant.config.configs import AgentConfig, GraphConfig
+
+from brick_assistant.tools.rdf_query import rdf_toolkit_tool
+
+class AbstractWuerthGraphRDF(ABC):
+    def __init__(self, keys: AgentConfig, llm: Union[str, BaseChatModel] = "openai", checkpointer: Optional[BaseCheckpointSaver]= None):       
         self.workflow = None
         self.graph = None
         self.checkpointer = checkpointer
+        self.keys = keys
+        self.model = _get_llm(llm, llm_api_key = self.keys.openai_api_key)
         self.config = {"configurable": {"thread_id":"1","llm_model":self.model}}
         self.result = None
         self._db_toolkit = None
         self._db_tool_nodes = None
         self._db_tools_func = None
         self._static_tool_nodes = None
+        self._static_tools = None
         self._node_functions = None
 
     @property
@@ -32,12 +38,7 @@ class AbstractWuerthGraph(ABC):
         """Lazy load the SQLDatabaseToolkit."""
         if self._db_toolkit is None:
             #try:
-            db = SQLDatabase.from_uri("postgresql+psycopg2://user:password@localhost:25432/store_data")
-                #db = SQLDatabase.from_uri(settings.get_database_uri())
-            # except ValueError as e:
-            #     # Fallback for local development if DATABASE_URI is not set
-            #     print(f"Warning: {e}. Using fallback database connection.")
-                #db = SQLDatabase.from_uri("postgresql+psycopg2://user:password@localhost:25432/store_data")
+            db = SQLDatabase.from_uri(self.keys.database_uri)
             self._db_toolkit = SQLDatabaseToolkit(db=db, llm=self.model)
         return self._db_toolkit
     
@@ -64,12 +65,17 @@ class AbstractWuerthGraph(ABC):
         return self._db_tool_nodes
     
     @property
+    def static_tools(self) -> Dict[str, Any]:
+        if not hasattr(self, "_static_tools") or self._static_tools is None:
+            self._static_tools = {"rdf_toolkit": rdf_toolkit_tool}
+        return self._static_tools
+
+    # fix this to return ToolNode
+    @property
     def static_tool_nodes(self) -> Dict[str, ToolNode]:
-        """Get tool nodes for static tools."""
         if self._static_tool_nodes is None:
-            brick_explore_tool=BrickExploration()
             self._static_tool_nodes = {
-                'brick_explore_tool': ToolNode([brick_explore_tool], name="brick_explore_tool")
+                "rdf_toolkit": ToolNode([rdf_toolkit_tool], name="rdf_toolkit")
             }
         return self._static_tool_nodes
     
@@ -84,14 +90,15 @@ class AbstractWuerthGraph(ABC):
         """Create wrapper functions with LLM and ToolNode instances bound."""
         
         # Import your functions
-        from wuerth_agent.tools.functions import (
+        from brick_assistant.tools.functions import (
             evaluate_user_query,
             call_get_schema,
             generate_query,
             check_query,
             tables_or_rdf,
             tables_or_end,
-            enforced_metadata_keys_call
+            enforced_metadata_keys_call,
+            create_rdf_toolkit
         )
         
         # Get tool nodes
@@ -111,7 +118,7 @@ class AbstractWuerthGraph(ABC):
                 state, 
                 self.model, 
                 db_tools['sql_db_query'], 
-                BrickExploration() 
+                rdf_toolkit_tool 
             )
         
         def check_query_wrapper(state):
@@ -122,7 +129,7 @@ class AbstractWuerthGraph(ABC):
                 state, 
                 self.model, 
                 db_tools['sql_db_list_tables'], 
-                BrickExploration() 
+                rdf_toolkit_tool
             )
         
         def tables_or_end_wrapper(state):
@@ -130,12 +137,20 @@ class AbstractWuerthGraph(ABC):
                 state, 
                 self.model, 
                 db_tools['sql_db_list_tables'], 
-                BrickExploration() 
+                rdf_toolkit_tool 
             )
         
         def metadata_keys_call_wrapper(state):
             return enforced_metadata_keys_call(
-                state
+                state,
+                path = self.keys.metadata_file
+            )
+        
+        def create_rdf_query_tool_wrapper(state):
+            return create_rdf_query_tool(
+                state,
+                self.model,
+                rdf_toolkit_tool
             )
         
         return {
@@ -146,6 +161,7 @@ class AbstractWuerthGraph(ABC):
             'tables_or_rdf': tables_or_rdf_wrapper,
             'tables_or_end': tables_or_end_wrapper,
             'metadata_keys_call': metadata_keys_call_wrapper,
+            'create_rdf_query_tool': create_rdf_query_tool_wrapper
         }
 
         

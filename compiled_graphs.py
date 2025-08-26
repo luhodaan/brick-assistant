@@ -3,9 +3,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Import your config class and graph classes
-from wuerth_agent.config.configs import AgentConfig  
+from brick_assistant.config.configs import AgentConfig  
 
-from wuerth_agent.graphs.wuerth_vanilla_graph_dev_rdf import WuerthVanillaGraphRDF
+from brick_assistant.graphs.wuerth_vanilla_graph_dev_rdf import WuerthVanillaGraphRDF
 
 
 # Load .env file manually (for getting the values)

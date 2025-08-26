@@ -1,5 +1,5 @@
-from wuerth_agent.evals.dataset_ttl import Examples
-from wuerth_agent.evals.grader import final_answer_correct
+from brick_assistant.evals.dataset_ttl import Examples
+from brick_assistant.evals.grader import final_answer_correct
 from compiled_graphs import wuerth_vanilla_graph_devRDF as graph
 from langsmith import Client
 
@@ -8,9 +8,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Import your config class and graph classes
-from wuerth_agent.config.configs import AgentConfig  
+from brick_assistant.config.configs import AgentConfig  
 
-from wuerth_agent.graphs.wuerth_vanilla_graph_dev_rdf import WuerthVanillaGraphRDF
+from brick_assistant.graphs.wuerth_vanilla_graph_dev_rdf import WuerthVanillaGraphRDF
 
 from langchain.globals import set_llm_cache
 set_llm_cache(None)
