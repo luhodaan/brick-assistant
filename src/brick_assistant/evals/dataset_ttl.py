@@ -64,7 +64,7 @@ Examples = [
     # Meter and energy queries
     {
         "inputs": {
-            "question": "What meters are available for the BCGU shop in Monopoli?",
+            "question": "What meters are available for BCGU in Monopoli?",
         },
         "outputs": {
             "response": "The BCGU shop in Monopoli has 2 meters: Main Electric Meter (UUID: 18166543-a2f7-46b1-bab2-f5eeb610d731) and HVAC Electric Meter (UUID: ab81da91-504b-4ff0-908c-fa188b09cdd3)"
@@ -95,14 +95,14 @@ Examples = [
             "question": "List all buildings with their areas sorted from largest to smallest",
         },
         "outputs": {
-            "response": "Buildings sorted by area (largest to smallest):\n1. Bussolengo: 1527 sq m\n2. Alessandria: 589 sq m\n3. Nola: 541 sq m\n4. Roma Prenestina: 515 sq m\n5. Darfo Boario Terme: 439 sq m\n6. Cesenatico: 399 sq m\n7. Ascoli: 398 sq m\n8. Osimo: 397 sq m\n9. Medolago: 400 sq m\n10. Oderzo: 394 sq m\n11. Fidenza: 379 sq m\n12. Cattolica: 370 sq m\n13. Cremona: 367 sq m\n14. Grottaminarda: 340 sq m\n15. Castiglione delle Stiviere: 287 sq m\n16. Monopoli: 285 sq m\n17. Milano City Life: 209 sq m\n18. Milano Via Padova: 178 sq m\n19. Roma Corso Francia: 171 sq m"
+            "response": "Buildings sorted by area (largest to smallest):\n1. Bussolengo or BCWG: 1527 sq m\n2. Alessandria or BCGE: 589 sq m\n3. Nola: 541 sq m\n4. Roma Prenestina or BCGF: 515 sq m\n5. Darfo Boario Terme or BCG7: 439 sq m\n6. Cesenatico or BCGX: 399 sq m\n7. Ascoli BCGV: 398 sq m\n8. Osimo or BCGK: 397 sq m\n9. Medolago or BCGP: 400 sq m\n10. Oderzo or BCFV : 394 sq m\n11. Fidenza or BCH2: 379 sq m\n12. Cattolica or BCGI: 370 sq m\n13. Cremona or BCFT: 367 sq m\n14. Grottaminarda or BCGR: 340 sq m\n15. Castiglione delle Stiviere or BCGM: 287 sq m\n16. Monopoli or BCGU: 285 sq m\n17. Milano City Life or BCGY: 209 sq m\n18. Milano Via Padova or BCGN: 178 sq m\n19. Roma Corso Francia or BCGG: 171 sq m"
         }
     },
     
     # Error handling / edge cases
     {
         "inputs": {
-            "question": "What sensors are in the BCG999 shop?",
+            "question": "What sensors are in the building BCG999?",
         },
         "outputs": {
             "response": "I couldn't find any shop with the code BCG999 in our building database. Please check the shop code and try again."
@@ -120,7 +120,7 @@ Examples = [
     # Complex multi-step queries
     {
         "inputs": {
-            "question": "I need to do maintenance on all temperature sensors in buildings larger than 400 square meters. Which sensors should I check?",
+            "question": "I need to do maintenance on all temperature sensors in buildings larger than 400 square meters. Which sensors should I check? Give me botht he name of the building and the location",
         },
         "outputs": {
             "response": "For buildings larger than 400 sq m, you need to check temperature sensors in:\n- Bussolengo (1527 sq m): 8 sensors\n- Alessandria (589 sq m): 5 sensors  \n- Nola (541 sq m): 5 sensors\n- Roma Prenestina (515 sq m): 5 sensors\n- Darfo Boario Terme (439 sq m): 5 sensors\nI can provide specific UUIDs for each sensor if needed."
@@ -144,16 +144,6 @@ Examples = [
         },
         "outputs": {
             "response": "The BCGW shop in Bussolengo has the most zones (7 zones: Zone_1, Zone_2, Zone_3, Zone_4, Zone_8, Zone_9, Zone_10) with 7 zone temperature sensors plus 1 outside temperature sensor, totaling 8 sensors."
-        }
-    },
-    
-    # Geographic clustering
-    {
-        "inputs": {
-            "question": "Group our buildings by geographic region in Italy",
-        },
-        "outputs": {
-            "response": "Buildings grouped by Italian regions:\n\nNorthern Italy:\n- Milano (2 buildings): Via Padova, City Life\n- Bussolengo, Castelfranco, Medolago, Oderzo, Darfo Boario Terme, Castiglione delle Stiviere, Fidenza, Cremona, Alessandria\n\nCentral Italy:\n- Roma (2 buildings): Corso Francia, Prenestina\n- Cesenatico, Ascoli, Cattolica, Osimo\n\nSouthern Italy:\n- Nola, Grottaminarda, Monopoli"
         }
     }
 ]

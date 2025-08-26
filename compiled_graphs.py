@@ -18,7 +18,7 @@ else:
 
 # Check what's in the environment
 print("DEBUG: DATABASE_URI:", os.getenv("DATABASE_URI"))
-print("DEBUG: OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
+
 
 # Create the config instance with values from environment
 config = AgentConfig(

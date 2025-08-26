@@ -44,7 +44,7 @@ examples = Examples
 client = Client()
 
 
-Dataset_name = "wuerth_ttl_RDF_optimization"
+Dataset_name = "wuerth_ttl_RDF_threadsafe"
 if not client.has_dataset(dataset_name=Dataset_name):
     dataset = client.create_dataset(dataset_name=Dataset_name)
     client.create_examples(
