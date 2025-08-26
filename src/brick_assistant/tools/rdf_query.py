@@ -5,6 +5,65 @@ from pydantic import BaseModel, Field
 from rdflib import Graph
 from langchain_core.tools import tool
 
+
+import threading
+from rdflib import Graph, Namespace
+from rdflib.plugins.sparql import prepareQuery
+
+_sparql_lock = threading.RLock()   # re-entrant lets ops call each other safely
+BRICK = Namespace("https://brickschema.org/schema/Brick#")
+
+# Compile queries once (parsing happens here; protect it)
+with _sparql_lock:
+    Q_AREA = prepareQuery("""
+        PREFIX brick: <https://brickschema.org/schema/Brick#>
+        SELECT ?area_value 
+        WHERE {
+          ?subject brick:hasArea ?value .
+          ?value brick:value ?area_value .
+        }
+    """)
+    Q_TEMP_SENSORS_UUID = prepareQuery("""
+        PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX brick: <https://brickschema.org/schema/Brick#>
+        SELECT ?sensor ?uuid ?cls ?location 
+        WHERE {
+          ?sensor a ?cls ; brick:hasUUID ?uuid .
+          FILTER STRENDS(STR(?cls), "Temperature_Sensor")
+          ?sensor brick:isPointOf ?location .
+        }
+    """)
+    Q_ZONES = prepareQuery("""
+        PREFIX brick: <https://brickschema.org/schema/Brick#>
+        SELECT ?zone ?building 
+        WHERE {
+          ?zone a brick:Zone .
+          ?zone brick:isPartOf ?building .
+        }
+    """)
+    Q_GENERIC_SENSORS = prepareQuery("""
+        PREFIX brick: <https://brickschema.org/schema/Brick#>
+        SELECT ?sensor ?uuid ?cls ?location 
+        WHERE {
+          ?sensor a ?cls ; brick:hasUUID ?uuid .
+          FILTER STRENDS(STR(?cls), "Sensor")
+          ?sensor brick:isPointOf ?location .
+        }
+    """)
+    Q_METERS = prepareQuery("""
+        PREFIX brick: <https://brickschema.org/schema/Brick#>
+        SELECT ?meter ?uuid ?cls ?location
+        WHERE {
+          ?meter a ?cls ; brick:hasUUID ?uuid .
+          FILTER STRENDS(STR(?cls), "Meter")
+          ?meter brick:feeds ?location .
+        }
+    """)
+
+def _safe_query(g: Graph, q, **kwargs):
+    # evaluation itself is generally fine, but keep the lock if you still see issues
+    with _sparql_lock:
+        return g.query(q, **kwargs)
 # ---------- infra ----------
 #@lru_cache(maxsize=32)
 def load_graph(building_name: str) -> Graph:
@@ -28,103 +87,34 @@ class RDFToolkitArgs(BaseModel):
     limit: Optional[int] = Field(50, ge=1, le=1000)
 
 # ---------- strategies ----------
-def op_area(g: Graph, args: RDFToolkitArgs) -> Dict[str, Any]:
-    q = """
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?area_value 
-    WHERE {
-      ?subject brick:hasArea ?value .
-      ?value brick:value ?area_value .
-    } 
-    """
-    results = g.query(q)
-    for r in results:
-      if not results:
-        return {"building": args.building_name, "area": None}
-    return {"building": args.building_name, "area": r["area_value"]}
+def op_area(g, args):
+    rows = list(_safe_query(g, Q_AREA))
+    area = rows[0]["area_value"] if rows else None
+    return {"building": args.building_name, "area": area}
 
-def op_temperature_sensors_uuid(g: Graph, args: RDFToolkitArgs) -> Dict[str, Any]:
-    q = """
-    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?sensor ?uuid ?cls ?location 
-    WHERE {
-      ?sensor a ?cls ; brick:hasUUID ?uuid .
-      FILTER STRENDS(STR(?cls), "Temperature_Sensor")
-      ?sensor brick:isPointOf ?location .
-    }
-    """
-    rows = g.query(q)
-    out = [
-        {
-            "sensor": str(r["sensor"]),
-            "uuid": str(r["uuid"]),
-            "class": str(r["cls"]),
-            "location": str(r["location"]),
-        }
-        for r in rows
-    ]
+def op_temperature_sensors_uuid(g, args):
+    rows = _safe_query(g, Q_TEMP_SENSORS_UUID)
+    out = [{"sensor": str(r["sensor"]), "uuid": str(r["uuid"]),
+            "class": str(r["cls"]), "location": str(r["location"])} for r in rows]
     return {"building": args.building_name, "sensors": out}
 
-def op_zones(g: Graph, args: RDFToolkitArgs) -> Dict[str, Any]:
-    q = """
-    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?zone ?building 
-    WHERE {
-      ?zone a brick:Zone .
-      ?zone brick:isPartOf ?building .
-    }
-    """
-    rows = g.query(q)
+def op_zones(g, args):
+    rows = _safe_query(g, Q_ZONES)
     zones = [{"zone": str(r["zone"]), "building": str(r["building"])} for r in rows]
     return {"building": args.building_name, "zones": zones}
 
-def op_generic_sensors(g: Graph, args: RDFToolkitArgs) -> Dict[str, Any]:
-    q = """
-    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?sensor ?uuid ?cls ?location 
-    WHERE {
-      ?sensor a ?cls ; brick:hasUUID ?uuid .
-      FILTER STRENDS(STR(?cls), "Sensor")
-      ?sensor brick:isPointOf ?location .
-    }
-    """
-    rows = g.query(q)
-    sensors = [
-        {
-            "sensor": str(r["sensor"]),
-            "uuid": str(r["uuid"]),
-            "class": str(r["cls"]),
-            "location": str(r["location"]),
-        }
-        for r in rows
-    ]
+def op_generic_sensors(g, args):
+    rows = _safe_query(g, Q_GENERIC_SENSORS)
+    sensors = [{"sensor": str(r["sensor"]), "uuid": str(r["uuid"]),
+                "class": str(r["cls"]), "location": str(r["location"])} for r in rows]
     return {"building": args.building_name, "sensors": sensors}
 
-def op_meters(g: Graph, args: RDFToolkitArgs) -> Dict[str, Any]:
-    q = """
-    PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX brick: <https://brickschema.org/schema/Brick#>
-    SELECT ?meter ?uuid ?cls ?location
-     WHERE {
-      ?meter a ?cls ; brick:hasUUID ?uuid .
-      FILTER STRENDS(STR(?cls), "Meter")
-      ?meter brick:feeds ?location .
-    }
-    """
-    rows = g.query(q)
-    meters = [
-        {
-            "meter": str(r["meter"]),
-            "uuid": str(r["uuid"]),
-            "class": str(r["cls"]),
-            "feeds": str(r["location"]),
-        }
-        for r in rows
-    ]
+def op_meters(g, args):
+    rows = _safe_query(g, Q_METERS)
+    meters = [{"meter": str(r["meter"]), "uuid": str(r["uuid"]),
+               "class": str(r["cls"]), "feeds": str(r["location"])} for r in rows]
     return {"building": args.building_name, "meters": meters}
+
 
 STRATEGIES = {
     "area": op_area,
