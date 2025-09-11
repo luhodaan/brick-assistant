@@ -8,17 +8,15 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain_community.agent_toolkits import SQLDatabaseToolkit
 from langgraph.prebuilt import ToolNode
-from pathlib import Path
 
 from brick_assistant.helpers.llm_models import _get_llm
-from brick_assistant.config import settings
 
-from brick_assistant.config.configs import AgentConfig, GraphConfig
+from brick_assistant.config.configs import AgentConfig
 
 from brick_assistant.tools.rdf_query import rdf_toolkit_tool
 
 class AbstractWuerthGraphRDF(ABC):
-    def __init__(self, keys: AgentConfig, llm: Union[str, BaseChatModel] = "openai", checkpointer: Optional[BaseCheckpointSaver]= None):       
+    def __init__(self, keys: AgentConfig, llm: Union[str, BaseChatModel] = "openai", checkpointer: Optional[BaseCheckpointSaver] = None):       
         self.workflow = None
         self.graph = None
         self.checkpointer = checkpointer
@@ -70,7 +68,6 @@ class AbstractWuerthGraphRDF(ABC):
             self._static_tools = {"rdf_toolkit": rdf_toolkit_tool}
         return self._static_tools
 
-    # fix this to return ToolNode
     @property
     def static_tool_nodes(self) -> Dict[str, ToolNode]:
         if self._static_tool_nodes is None:
@@ -147,7 +144,7 @@ class AbstractWuerthGraphRDF(ABC):
             )
         
         def create_rdf_query_tool_wrapper(state):
-            return create_rdf_query_tool(
+            return create_rdf_toolkit(
                 state,
                 self.model,
                 rdf_toolkit_tool
