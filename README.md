@@ -1,6 +1,6 @@
 # 🧱🔗 Brick Assistant 
 
-## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language.
+## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language
 
 ![Brick Assistant Logo](pics/brick-assistant.png)
 
@@ -17,6 +17,10 @@ The Brick Assistant can answer questions like:
 ## ⚙️ Installation
 
 This project uses **UV** for dependency management.  
+
+**``Clone the repository``**.
+
+Then:
 
 1. Install UV.  
 2. Sync dependencies:
@@ -38,12 +42,12 @@ uv pip install -e .
 
 ![workflow](pics/workflow.png)
 
-**The project was built to be modular and extensible. Let's dive in into the main components:**
+**This project was built to be modular and extensible. Let's dive in into the main components:**
 
 ### 📁 config
 - **`configs.py`**:
 This module contains configuration settings for the project, including API keys and other constants.
-The necessary fields are visibile in the ```.env.example file which must be copied and renamed to .env``` and filled with the appropriate values.
+The necessary fields are visibile in the '***'.env.example file which must be copied and renamed to .env*** and filled with the appropriate values.
 
 ### 📁 helpers
 
@@ -83,7 +87,7 @@ Edges are embedded directly in tool definitions via the new **LangGraph Command*
 
 
 ### 📁 graphs
-Chore module of the project. This is where the workflow is defined and all the other pieces are glued toghther. 
+Chore module of the project. This is where the workflow is defined and all the other pieces are glued toghether. 
 
 #### Files
 
@@ -146,7 +150,25 @@ This module contains evaluation scripts to test the performance and accuracy of 
    - You can also run the assistant from a **Python script** or a **Jupyter Notebook**.  
    - An example is provided in the notebook: **`vanilla.ipynb`**.  
 
-## Future Steps:
+## 🔮 Future Work
 
+- 📚 **Expand RDF query library**  
+  Cover a broader range of use cases with additional predefined queries.  
 
+- 🛠️ **Introduce fallback mechanism**  
+  Re-enable the `BrickExploration` tool when predefined queries cannot answer a user’s question.  
 
+- 👩‍🏫 **Add human-in-the-loop feedback**  
+  Incorporate user feedback for continuous refinement and improvement.  
+
+- 🤖 **Support additional LLM providers**  
+  Extend compatibility beyond OpenAI for more flexibility.  
+
+- 📦 **Make it a package**  
+  Package the project for easier distribution and installation.  
+
+- 🌐 **Update the web-app depending on the assistant**  
+  Currently it uses the old token-expensive, inefficient version, which can be found [here](https://gitlab.inf.unibz.it/eeb/wuerth-agent). 
+   
+- 🧪 **MCP server exploration**
+See how to build an mcp server on top of the assistant.
