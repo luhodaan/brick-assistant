@@ -2,7 +2,7 @@
 
 ## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language.
 
-![Brick Assistant Logo](pics\brick-assistant.png)
+![Brick Assistant Logo](pics/brick-assistant.png)
 
 ## Overview
 The Brick Assistant can answer questions like:
@@ -32,7 +32,7 @@ uv pip install -e .
 
 ## 🗂️ Project structure
 The project was built to be modular and extensible. Let's dive in into the main components:
-![workflow](pics\workflow.png)
+![workflow](pics/workflow.png)
 ### 📁 config
 - configs.py:
 This module contains configuration settings for the project, including API keys and other constants.
