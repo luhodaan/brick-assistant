@@ -28,7 +28,6 @@ class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
         self.workflow.add_node("evaluate_user_query", node_funcs['evaluate_user_query'])
         self.workflow.add_node("metadata_keys_call", node_funcs['metadata_keys_call'])
         self.workflow.add_node("tables_or_rdf", node_funcs['tables_or_rdf'])
-        #self.workflow.add_node("create_rdf_query_tool", node_funcs['create_rdf_query_tool'])
         self.workflow.add_node("rdf_toolkit", static_nodes['rdf_toolkit'])
         self.workflow.add_node("tables_or_end", node_funcs['tables_or_end'])
         self.workflow.add_node("list_tables_tool", db_nodes['sql_db_list_tables'])

@@ -28,7 +28,6 @@ class AbstractWuerthGraphRDF(ABC):
         self._db_tool_nodes = None
         self._db_tools_func = None
         self._static_tool_nodes = None
-        self._static_tools = None
         self._node_functions = None
 
     @property
@@ -61,12 +60,6 @@ class AbstractWuerthGraphRDF(ABC):
                 self._db_tool_nodes[tool.name] = ToolNode([tool], name=tool.name)
                 self._db_tools_func[tool.name] = tool
         return self._db_tool_nodes
-    
-    @property
-    def static_tools(self) -> Dict[str, Any]:
-        if not hasattr(self, "_static_tools") or self._static_tools is None:
-            self._static_tools = {"rdf_toolkit": rdf_toolkit_tool}
-        return self._static_tools
 
     @property
     def static_tool_nodes(self) -> Dict[str, ToolNode]:
@@ -86,7 +79,6 @@ class AbstractWuerthGraphRDF(ABC):
     def _create_node_functions(self) -> Dict[str, callable]:
         """Create wrapper functions with LLM and ToolNode instances bound."""
         
-        # Import your functions
         from brick_assistant.tools.functions import (
             evaluate_user_query,
             call_get_schema,
@@ -94,8 +86,7 @@ class AbstractWuerthGraphRDF(ABC):
             check_query,
             tables_or_rdf,
             tables_or_end,
-            enforced_metadata_keys_call,
-            create_rdf_toolkit
+            enforced_metadata_keys_call
         )
         
         # Get tool nodes
@@ -141,14 +132,7 @@ class AbstractWuerthGraphRDF(ABC):
             return enforced_metadata_keys_call(
                 state,
                 path = self.keys.metadata_file
-            )
-        
-        def create_rdf_query_tool_wrapper(state):
-            return create_rdf_toolkit(
-                state,
-                self.model,
-                rdf_toolkit_tool
-            )
+            )        
         
         return {
             'evaluate_user_query': evaluate_user_query_wrapper,
@@ -157,8 +141,7 @@ class AbstractWuerthGraphRDF(ABC):
             'check_query': check_query_wrapper,
             'tables_or_rdf': tables_or_rdf_wrapper,
             'tables_or_end': tables_or_end_wrapper,
-            'metadata_keys_call': metadata_keys_call_wrapper,
-            'create_rdf_query_tool': create_rdf_query_tool_wrapper
+            'metadata_keys_call': metadata_keys_call_wrapper
         }
 
         

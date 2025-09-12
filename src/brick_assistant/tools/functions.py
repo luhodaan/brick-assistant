@@ -132,27 +132,6 @@ def tables_or_end(state: MessagesState, llm_instance: BaseChatModel, list_tables
     update = {"messages": [response]}
     return Command(update=update, goto=goto)
 
-
-
-# from langchain_core.messages import AIMessage
-
-# def enforced_metadata_keys_call(state: MessagesState):
-#     # 2. Execute the tool manually
-#     metadata_instance = MetadataKeys(metadata_file=settings.METADATA_FILE)
-#     tool_result = metadata_instance.invoke({})
-
-#     final_response = AIMessage(
-#         content=f"I found the available buildings: {tool_result}"
-#     )
-    
-    
-#     return {"messages": [ final_response]} 
-
-
-# ============================================
-# Functional interfaces for use in graph nodes
-# ============================================
-
 # ============================================
 # Functional interfaces for use in graph nodes
 # ============================================
@@ -190,13 +169,13 @@ def enforced_metadata_keys_call(state: MessagesState,path: Path) -> Dict[str, Li
     return {"messages": [message]}
 
    
-def create_rdf_toolkit(state: MessagesState, llm_instance: BaseChatModel, rdf_toolkit) -> ToolMessage: 
-    system_message = {
-        "role": "system",
-        "content": prompts.rdf_toolkit_PROMPT
-    }
+# def create_rdf_toolkit(state: MessagesState, llm_instance: BaseChatModel, rdf_toolkit) -> ToolMessage: 
+#     system_message = {
+#         "role": "system",
+#         "content": prompts.rdf_toolkit_PROMPT
+#     }
 
-    llm_with_tools = llm_instance.bind_tools([rdf_toolkit], tool_choice="any")
-    response = llm_with_tools.invoke([system_message] + state["messages"])  
+#     llm_with_tools = llm_instance.bind_tools([rdf_toolkit], tool_choice="any")
+#     response = llm_with_tools.invoke([system_message] + state["messages"])  
 
-    return {"messages": [response]}
+#     return {"messages": [response]}
