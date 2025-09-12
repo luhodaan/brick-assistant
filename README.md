@@ -1,4 +1,4 @@
-# 🧱⚙️ Brick Assistant 
+# 🧱🔗 Brick Assistant 
 
 ## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language.
 
