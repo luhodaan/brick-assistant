@@ -169,13 +169,3 @@ def enforced_metadata_keys_call(state: MessagesState,path: Path) -> Dict[str, Li
     return {"messages": [message]}
 
    
-# def create_rdf_toolkit(state: MessagesState, llm_instance: BaseChatModel, rdf_toolkit) -> ToolMessage: 
-#     system_message = {
-#         "role": "system",
-#         "content": prompts.rdf_toolkit_PROMPT
-#     }
-
-#     llm_with_tools = llm_instance.bind_tools([rdf_toolkit], tool_choice="any")
-#     response = llm_with_tools.invoke([system_message] + state["messages"])  
-
-#     return {"messages": [response]}

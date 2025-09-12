@@ -2,12 +2,9 @@
 
 ## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language.
 
-It facilitates the process of extracting insights from complex building data, aggregating information from various sources.
+![Brick Assistant Logo](pics\brick-assistant.png)
 
-- We can have a timeseries database with sensor data.
-- We can have a json file that contains metadata about the building and its systems (e.g name of the building, location, system descriptions, etc).
-- Most importantly we have turtle files that describe the building systems and their relationships using the Brick schema.
-
+## Overview
 The Brick Assistant can answer questions like:
 - "What is the average temperature in the building X over the last week?"
 - "How many VAVs are there in the building?"
@@ -35,7 +32,7 @@ uv pip install -e .
 
 ## 🗂️ Project structure
 The project was built to be modular and extensible. Let's dive in into the main components:
-
+![workflow](pics\workflow.png)
 ### 📁 config
 - configs.py:
 This module contains configuration settings for the project, including API keys and other constants.
@@ -73,6 +70,10 @@ Specifically it instantiates the SQL set of tools and the RDF query tool. The wo
 
 - wuerth_graph_rdf.py:
 This is the actual graph that is used in the project. It inherits from the abstract_rdf.py and defines the workflow using the tools defined there.
+
+### 📁 evals
+This module contains evaluation scripts to test the performance and accuracy of the Brick Assistant.
+- evals.py:
 
 
 
