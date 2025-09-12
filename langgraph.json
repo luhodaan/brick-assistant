@@ -4,5 +4,5 @@
         "my_agent": "./compiled_graphs.py:wuerth_vanilla_graph_devRDF"
     },
     "env": "./.env",
-    "python_version": "3.11"
+    "python_version": "3.12"
 }

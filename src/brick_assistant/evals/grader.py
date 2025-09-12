@@ -21,15 +21,10 @@ class Grade(TypedDict):
     reasoning: Annotated[str, ..., "Explain your reasoning for whether the actual response is correct or not."]
     is_correct: Annotated[bool, ..., "True if the student response is mostly or exactly correct, otherwise False."]
 
-# Judge LLM
-
-
 def final_answer_correct(inputs: dict, outputs: dict, reference_outputs: dict) -> bool:
     """Evaluate if the final response is equivalent to reference response."""
     grader_llm = init_chat_model("gpt-4o-mini", temperature=0).with_structured_output(Grade, method="json_schema", strict=True)
 
-    # Note that we assume the outputs has a 'response' dictionary. We'll need to make sure
-    # that the target function we define includes this key.
     user = f"""QUESTION: {inputs['question']}
     GROUND TRUTH RESPONSE: {reference_outputs['response']}
     STUDENT RESPONSE: {outputs['response']}"""
