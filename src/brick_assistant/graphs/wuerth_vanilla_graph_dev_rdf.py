@@ -73,7 +73,7 @@ class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
         if stream:
             events = []
             for event in self.graph.stream(
-                input_data, self.config, stream_mode="values"
+                input_data, self.config, stream_mode="updates"
             ):
                 events.append(event)
             self.result = events[-1] if events else None

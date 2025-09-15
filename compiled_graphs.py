@@ -30,4 +30,5 @@ config = AgentConfig(
 
 # Create graph instances with injected config
 
-wuerth_vanilla_graph_devRDF = WuerthVanillaGraphRDF(keys=config)._compiled_graph()
+wuerth_vanilla_graph_devRDF = WuerthVanillaGraphRDF(keys=config)
+wuerth_vanilla_graph_devRDF_compiled = WuerthVanillaGraphRDF(keys=config)._compiled_graph()

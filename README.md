@@ -38,6 +38,19 @@ Given that the project also import its own package and modules, you need to inst
 uv pip install -e .
 ```
 
+## Examples of usage:
+### You can find some examples of usage in the notebook: **`basic_usage_examples.ipynb`**.
+
+````python
+from compiled_graphs import wuerth_vanilla_graph_devRDF, wuerth_vanilla_graph_devRDF_compiled
+
+g = wuerth_vanilla_graph_devRDF
+question = """what building has the smallest area"""
+answers = g.run(input_data = {"user_prompt":question}, stream=True) 
+for answer in answers:
+    print(answer)
+````
+
 # 🗂️ Project structure and workflow
 
 ![workflow](pics/workflow.png)
@@ -148,7 +161,28 @@ This module contains evaluation scripts to test the performance and accuracy of 
 
    **b. Run directly in Python**  
    - You can also run the assistant from a **Python script** or a **Jupyter Notebook**.  
-   - An example is provided in the notebook: **`vanilla.ipynb`**.  
+   - Usage examples are also provided in the notebook: **`basic_usage_examples.ipynb`**.  
+
+## Development Notes
+
+📦 **Packaging and File Paths**
+When preparing to make Brick Assistant installable as a package, it’s critical to respect file paths that the system relies on.
+This ensures the assistant can work not only with Würth data but also with any dataset.
+
+Key paths to maintain:
+
+- **Database connection string**:  
+  ```python
+  database_uri: str = Field(..., description="Database connection URI")
+  ```
+- **Metadata file**:  
+  ```python
+  METADATA_FILE = "data/metadataloc.json"
+  ```
+- **TTL files path**:  
+  ```python
+  TTL_FILES_PATH = Path("data/ttl_files")
+  ```
 
 ## 🔮 Future Work
 
@@ -164,8 +198,7 @@ This module contains evaluation scripts to test the performance and accuracy of 
 - 🤖 **Support additional LLM providers**  
   Extend compatibility beyond OpenAI for more flexibility.  
 
-- 📦 **Make it a package**  
-  Package the project for easier distribution and installation.  
+- 📦 **Make it a package**
 
 - 🌐 **Update the web-app depending on the assistant**  
   Currently it uses the old token-expensive, inefficient version, which can be found [here](https://gitlab.inf.unibz.it/eeb/wuerth-agent). 
