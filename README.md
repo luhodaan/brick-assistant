@@ -1,4 +1,7 @@
-# 🧱🔗 Brick Assistant 
+<img src="pics/brick.png" alt="Brick Assistant" style="border-radius: 12px; border: 2px solid #ccc;" />
+
+
+# 🧱🔗 **BRICK-ASSISTANT**
 
 ## Brick Assistant is an AI-powered tool designed to help you query and interact with your building datasources using natural language
 
