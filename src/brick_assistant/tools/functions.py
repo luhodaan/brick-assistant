@@ -1,7 +1,6 @@
 from brick_assistant.config import settings
 from brick_assistant.tools import prompts
 from pydantic import BaseModel, Field
-from typing import Optional
 
 from langgraph.graph import MessagesState as BaseMessagesState
 from langchain.chat_models.base import BaseChatModel
@@ -12,6 +11,11 @@ from langchain_core.messages import AIMessage
 from langgraph.graph import END
 from typing import Literal
 from langgraph.types import Command 
+
+from typing import Dict, Optional, List
+import json
+from functools import lru_cache
+from pathlib import Path
 
 
 class QueryEvaluation(BaseModel):
@@ -134,11 +138,6 @@ def tables_or_end(state: MessagesState, llm_instance: BaseChatModel, list_tables
 # ============================================
 # Functional interfaces for use in graph nodes
 # ============================================
-
-from typing import Dict, Optional, List
-import json
-from functools import lru_cache
-from pathlib import Path
 
 @lru_cache(maxsize=1)
 def load_metadata(path_str: str) -> Dict:

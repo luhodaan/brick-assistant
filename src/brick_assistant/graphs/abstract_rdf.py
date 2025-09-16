@@ -1,4 +1,3 @@
-import os
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, Union, Optional
 
@@ -174,15 +173,7 @@ class AbstractWuerthGraphRDF(ABC):
         if self.graph is None:
             raise ValueError("Graph has not been compiled yet. Call compile_graph() first.")
         return self.graph
-    
-    def _set_up_development_environment(self):
-        """
-        Set up the development environment for the graph.
-        This method can be overridden by subclasses to customize the setup.
-        """
-        # Default implementation does nothing
-        os.getenv
-        
+            
     @abstractmethod
     def run(self, input_data: Dict[str, Any], stream: bool = False) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
         """
