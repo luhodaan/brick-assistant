@@ -6,14 +6,13 @@ from typing import Optional
 from langgraph.graph import MessagesState as BaseMessagesState
 from langchain.chat_models.base import BaseChatModel
 
-from langchain_core.messages import AIMessage, ToolMessage
+from langchain_core.messages import AIMessage
 
 # REFACTOR FROM EDGES TO COMMANDS
 from langgraph.graph import END
 from typing import Literal
-from langgraph.types import Command, interrupt 
+from langgraph.types import Command 
 
-from rdflib import Graph, BNode
 
 class QueryEvaluation(BaseModel):
     is_valid: bool = Field(description="Whether the query is valid")
@@ -136,13 +135,9 @@ def tables_or_end(state: MessagesState, llm_instance: BaseChatModel, list_tables
 # Functional interfaces for use in graph nodes
 # ============================================
 
-from typing import Dict, Optional, List, Tuple
+from typing import Dict, Optional, List
 import json
-import os
 from functools import lru_cache
-from langchain_core.messages import AIMessage
-from brick_assistant.config import settings
-from brick_assistant.config.configs import AgentConfig
 from pathlib import Path
 
 @lru_cache(maxsize=1)

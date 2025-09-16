@@ -1,5 +1,4 @@
 from typing import Literal, TypedDict, Union
-from pydantic_settings import BaseSettings
 from pydantic import Field,BaseModel
 from langchain.chat_models.base import BaseChatModel
 from pathlib import Path

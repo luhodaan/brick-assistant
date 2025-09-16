@@ -1,4 +1,4 @@
-from typing import Dict, Optional, List, Tuple
+from typing import List, Tuple
 import json
 import os
 from rdflib import Graph, BNode

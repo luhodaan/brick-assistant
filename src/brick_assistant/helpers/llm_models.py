@@ -1,5 +1,4 @@
 from typing import Union
-from brick_assistant.config import settings
 
 from langchain.chat_models.base import BaseChatModel
 from langchain_openai import ChatOpenAI

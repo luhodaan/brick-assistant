@@ -1,6 +1,5 @@
 from brick_assistant.evals.dataset_ttl import Examples
 from brick_assistant.evals.grader import final_answer_correct
-from compiled_graphs import wuerth_vanilla_graph_devRDF as graph
 from langsmith import Client
 
 import os

@@ -1,12 +1,12 @@
-from langgraph.graph import StateGraph, START, END
+from langgraph.graph import StateGraph, START
 from brick_assistant.tools.functions import MessagesState
-from typing import Any, Dict, List, Union, Literal
+from typing import Any, Dict, List, Union
 from langchain.chat_models.base import BaseChatModel
 from brick_assistant.config.configs import GraphConfig
 from langgraph.checkpoint.memory import MemorySaver
 from brick_assistant.graphs.abstract_rdf import AbstractWuerthGraphRDF
 
-from brick_assistant.config.configs import AgentConfig, GraphConfig
+from brick_assistant.config.configs import AgentConfig
 
 class WuerthVanillaGraphRDF(AbstractWuerthGraphRDF):
     def __init__(self, keys: AgentConfig, llm: Union[str, BaseChatModel] = "openai", checkpointer: MemorySaver = None):

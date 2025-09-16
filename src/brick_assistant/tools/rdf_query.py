@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Literal, Optional, Dict, Any, List
+from typing import Literal, Optional, Dict, Any
 from pydantic import BaseModel, Field
 #from functools import lru_cache
 from rdflib import Graph
@@ -7,7 +7,7 @@ from langchain_core.tools import tool
 
 
 import threading
-from rdflib import Graph, Namespace
+from rdflib import Namespace
 from rdflib.plugins.sparql import prepareQuery
 
 _sparql_lock = threading.RLock()   # re-entrant lets ops call each other safely
