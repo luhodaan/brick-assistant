@@ -186,6 +186,16 @@ Key paths to maintain:
   ```python
   TTL_FILES_PATH = Path("data/ttl_files")
   ```
+- **TTL File Naming Convention**:  
+  All TTL files must follow a strict naming convention to ensure consistent file resolution:
+  ```python
+  file_path = f"data/ttl_files/bui_{building_name.upper()}.ttl"
+  ```
+  - `bui_` is a required prefix.
+  - `{building_name}` is a placeholder for the building name in uppercase.
+  - `.ttl` is the required file extension.
+  **Example**:
+   For a building named "xyz", the corresponding TTL file should be named `bui_XYZ.ttl`.
 
 ## 🔮 Future Work
 
